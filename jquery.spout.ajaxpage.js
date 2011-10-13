@@ -26,7 +26,7 @@ void function(){
 		    	return data;  	
 		    }
 		that.ajaxing = true;
-		$.ajax({dataType:'json', type: that.ajaxmethod, url: that.ajaxurl, data: serialdata(),success: function(data){ callback(data, that);that.ajaxing = false;},error:function(){}})
+		$.ajax({dataType:'json', cache:false, type: that.ajaxmethod, url: that.ajaxurl, data: serialdata(),success: function(data){ callback(data, that);that.ajaxing = false;},error:function(){}})
 	}
 	Ajaxpage.prototype.first = function(callback, isfirst){
 		var callback = !callback ? this.putcallback : callback,
