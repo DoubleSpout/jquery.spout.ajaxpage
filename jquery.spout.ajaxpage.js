@@ -4,7 +4,7 @@ void function(){
 		this.ajaxurl= option.ajaxurl;//ajax请求地址
 		this.ajaxmethod = option.method || 'GET';//ajax请求的方法，get或者post
 		this.ajaxdata = option.data || {action:'ajaxpage',start:'$start',end:'$end'};//ajax请求发送过去的格式默认{action:'ajaxpage',start:起始页码,end:结束页码}
-		this.totalkey = option.totalkey || 'total';//返回json数据中所以记录的条数KEY名称
+		this.totalkey = option.totalkey || '$data.total';//返回json数据中所以记录的条数KEY名称
 		this.putcallback = option.putcallback || function(data, object){};//当ajax记录返回往页面插入内容和分页样式更改的回调
 		this.allpage = 1;//总页数
 		this.curpage = 1;//当前记录数
@@ -26,7 +26,7 @@ void function(){
 		    	return data;  	
 		    }
 		that.ajaxing = true;
-		$.ajax({dataType:'json', cache:false, type: that.ajaxmethod, url: that.ajaxurl, data: serialdata(),success: function(data){ callback(data, that);that.ajaxing = false;},error:function(){}})
+		$.ajax({dataType:'json',cache:false, type: that.ajaxmethod, url: that.ajaxurl, data: serialdata(),success: function(data){ callback(data, that);that.ajaxing = false;},error:function(){}})
 	}
 	Ajaxpage.prototype.first = function(callback, isfirst){
 		var callback = !callback ? this.putcallback : callback,
@@ -86,10 +86,14 @@ void function(){
 		this.allpage = Math.ceil(this.total/this.pagenum);	
 		if(this.allpage===0) this.allpage =1;
 	}
+	Ajaxpage.prototype.gettotal = function(data){
+		return eval('('+this.totalkey.replace('$data', 'data')+')');
+	}
 	Ajaxpage.prototype.intial=function(total){
 		var that = this;
 		that.first(function(data, obj){
-			that.ical(data[that.totalkey]);
+			var dt = that.gettotal(data);
+			that.ical(dt);
 			that.putcallback(data, obj);
 		}, true);
 	}
