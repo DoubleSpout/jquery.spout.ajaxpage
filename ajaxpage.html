@@ -27,7 +27,7 @@ ajaxpage API：
 
 1、option参数说明：
 pagenum : 每页多少条记录
-ajaxmethod : ajax请求方式，get或者post
+method : ajax请求方式，get或者post
 data : ajax发送过去的数据格式，注意：$spage和 $epage 代表发给后台的 开始记录指针位置和结束记录指针位置
 totalkey : 表示后端返回的JSON数据格式中 所以记录条数的 KEY，这个一定要设置正确:如果返回结果为:{data:{total:80}, content:...} 则这里设置为：$data.data.total
 putcallback : 表示后端返回结果后的回调，2个参数data为后端返回的数据，obj即为 Spout_ajaxpage 实例对象
@@ -51,7 +51,7 @@ intial()方法：跳转至第一页，初始化数据重新计算分页
 var option = {
 	pagenum:15,
 	ajaxurl:'./ajax.txt',
-	ajaxmethod:'GET',
+	method:'GET',
 	data:{a:'getpage', s:'$start',e:'$end'},
 	totalkey:'$data.d.count',
 	putcallback:function(data, obj){
