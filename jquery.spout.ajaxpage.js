@@ -36,6 +36,7 @@ void function(){
 			};
 		this.start = 1;
 		if(!isfirst) this.end = this.pagenum > this.total ? this.total : this.pagenum;		
+		else this.end = this.pagenum;
 	 	if(this.curpage != 1 || isfirst) Ajaxpage.ajaxgo(cb, this);
 	}
 	Ajaxpage.prototype.next = function(callback){
