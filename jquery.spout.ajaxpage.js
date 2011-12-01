@@ -88,6 +88,7 @@ void function(){
 		if(this.allpage===0) this.allpage =1;
 	}
 	Ajaxpage.prototype.gettotal = function(data){
+		if(this.totalkey.indexOf('$data') <0 ) return parseInt(this.totalkey);
 		return eval('('+this.totalkey.replace('$data', 'data')+')');
 	}
 	Ajaxpage.prototype.intial=function(total){
